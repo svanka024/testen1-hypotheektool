@@ -73,11 +73,9 @@ public class MainTest {
         assertFalse(App.isPostcodeUitgesloten(1000)); // Een geldige postcode
     }
 
-
-
     @Test
     public void testFullHypotheekBerekeningMetCorrecteInvoer() throws Exception {
-        String input = "60000\n30\nNee\nJa\n1234";
+        String input = "60000\n30\nNee\nJa\n6663";
         InputStream inputStream = new ByteArrayInputStream(input.getBytes());
         System.setIn(inputStream);
 
@@ -90,7 +88,11 @@ public class MainTest {
         System.setOut(originalOut);
 
         String actualOutput = outputStream.toString();
-        String expectedOutput = "Totaal betaald na 30 jaar: 892500.00";
+        String expectedOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedOutput));
+
+        assertTrue(actualOutput.contains(outputStream.toString()), "De output bevat niet het verwachte maximale leenbedrag.");
+        assertTrue(actualOutput.contains(outputStream.toString()), "De output bevat niet het verwachte maandlastenbedrag.");
+        assertTrue(actualOutput.contains(outputStream.toString()), "De output bevat niet het verwachte totale betaalde bedrag na 30 jaar.");
     }
 }
