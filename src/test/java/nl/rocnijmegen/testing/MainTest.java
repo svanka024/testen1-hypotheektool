@@ -1,6 +1,5 @@
 package nl.rocnijmegen.testing;
 
-import com.sun.tools.javac.Main;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -74,8 +73,8 @@ public class MainTest {
     }
 
     @Test
-    public void testFullHypotheekBerekeningMetCorrecteInvoer() throws Exception {
-        String input = "60000\n30\nNee\nJa\n6663";
+    public void FullHypotheekBerekening() throws Exception {
+        String input = "60000\nnee\nnee\n6663\n30";
         InputStream inputStream = new ByteArrayInputStream(input.getBytes());
         System.setIn(inputStream);
 
@@ -83,7 +82,7 @@ public class MainTest {
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
-        Main.main(new String[0]);
+        App.main(new String[0]);
 
         System.setOut(originalOut);
 
@@ -91,8 +90,9 @@ public class MainTest {
         String expectedOutput = outputStream.toString();
         assertTrue(actualOutput.contains(expectedOutput));
 
-        assertTrue(actualOutput.contains(outputStream.toString()), "De output bevat niet het verwachte maximale leenbedrag.");
-        assertTrue(actualOutput.contains(outputStream.toString()), "De output bevat niet het verwachte maandlastenbedrag.");
-        assertTrue(actualOutput.contains(outputStream.toString()), "De output bevat niet het verwachte totale betaalde bedrag na 30 jaar.");
+
+        assertTrue(actualOutput.contains("Maandlasten voor hypotheek: €1770,83"), "De output bevat niet het verwachte maximale leenbedrag.");
+        assertTrue(actualOutput.contains(berekenMaandlasten), "De output bevat niet het verwachte maandlastenbedrag.");
+        assertTrue(actualOutput.contains(getRentePercentage), "De output bevat niet het verwachte totale betaalde bedrag na 30 jaar.");
     }
 }
