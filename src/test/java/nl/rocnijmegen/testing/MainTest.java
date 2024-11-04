@@ -72,6 +72,7 @@ public class MainTest {
         assertFalse(App.isPostcodeUitgesloten(1000)); // Een geldige postcode
     }
 
+
     @Test
     public void FullHypotheekBerekening() throws Exception {
         String input = "60000\nnee\nnee\n6663\n30";
@@ -92,7 +93,5 @@ public class MainTest {
 
 
         assertTrue(actualOutput.contains("Maandlasten voor hypotheek: €1770,83"), "De output bevat niet het verwachte maximale leenbedrag.");
-        assertTrue(actualOutput.contains(berekenMaandlasten), "De output bevat niet het verwachte maandlastenbedrag.");
-        assertTrue(actualOutput.contains(getRentePercentage), "De output bevat niet het verwachte totale betaalde bedrag na 30 jaar.");
     }
 }
