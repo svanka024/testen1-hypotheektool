@@ -74,7 +74,7 @@ public class MainTest {
 
 
     @Test
-    public void FullHypotheekBerekening() throws Exception {
+     void FullHypotheekBerekening(){
         String input = "60000\nnee\nnee\n6663\n30";
         InputStream inputStream = new ByteArrayInputStream(input.getBytes());
         System.setIn(inputStream);
@@ -93,5 +93,49 @@ public class MainTest {
 
 
         assertTrue(actualOutput.contains("Maandlasten voor hypotheek: €1770,83"), "De output bevat niet het verwachte maximale leenbedrag.");
+    }
+
+    @Test
+    void test2(){
+        String input = "20000\nnee\nja\n6663\n30";
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+        System.setIn(inputStream);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        App.main(new String[0]);
+
+        System.setOut(originalOut);
+
+        String actualOutput = outputStream.toString();
+        String expectedOutput = outputStream.toString();
+        assertTrue(actualOutput.contains(expectedOutput));
+
+
+        assertTrue(actualOutput.contains("Maandlasten voor hypotheek: €442,71"), "De output bevat niet het verwachte maximale leenbedrag.");
+    }
+
+    @Test
+    void test3(){
+        String input = "40000\nja\n10000\nnee\n1234\n30";
+        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+        System.setIn(inputStream);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        App.main(new String[0]);
+
+        System.setOut(originalOut);
+
+        String actualOutput = outputStream.toString();
+        String expectedOutput = outputStream.toString();
+        assertTrue(actualOutput.contains(expectedOutput));
+
+
+        assertTrue(actualOutput.contains("Maandlasten voor hypotheek: €1475,69"), "De output bevat niet het verwachte maximale leenbedrag.");
     }
 }
